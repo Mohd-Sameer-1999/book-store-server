@@ -1,5 +1,6 @@
-const {verifyJWT} = require('./jwtTokenUtil');
-
-exports.protectedRoute = (token) => {
-    
+exports.protectedRoute = (req, res, next) => {
+    if(req.user.role !== 'admin'){
+        return res.sendStatus(403);
+    }
+    next()
 }

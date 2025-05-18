@@ -1,9 +1,9 @@
 const errorHandler = async(error, req, res, next) => {
-    const statusCode = req.statusCode === 200 ? 500 : req.statusCode;
-    res.status(statusCode);
-    res.json({
-        message: error.message,
-    })
+    console.error(error.stack); 
+    res.status(error.status || 500).json({
+        success: false,
+        message: error.message || 'Internal Server Error',
+    });
     
 }
 
