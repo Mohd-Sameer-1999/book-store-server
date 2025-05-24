@@ -163,6 +163,10 @@ const config = {
         "fromEnvVar": null,
         "value": "darwin-arm64",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-arm64-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -180,16 +184,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgres://postgres:JcHb%3B6%26t%3EVuxZS%3E@database-1.cluster-cfsk4us4wzys.eu-north-1.rds.amazonaws.com"
+        "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  name      String\n  email     String   @unique\n  password  String   @unique\n  role      Role     @default(user)\n}\n\nmodel Book {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String   @unique\n  author    String\n  price     Float\n  stock     Int\n}\n\nmodel Order {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  userId    Int\n  bookId    Int\n  quantity  Int\n  total     Float\n}\n\nenum Role {\n  admin\n  user\n}\n",
-  "inlineSchemaHash": "6c34e250991830f55b85bd23abbd2c94072b70cd6790926a03c7fa353fae49e5",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"linux-musl-arm64-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  name      String\n  email     String   @unique\n  password  String   @unique\n  role      Role     @default(user)\n}\n\nmodel Book {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String   @unique\n  author    String\n  price     Float\n  stock     Int\n}\n\nmodel Order {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  userId    Int\n  bookId    Int\n  quantity  Int\n  total     Float\n}\n\nenum Role {\n  admin\n  user\n}\n",
+  "inlineSchemaHash": "6c534094c8c5074692918493dd7ffa4bb907c1e4f40382de2eca02eb257194d4",
   "copyEngine": true
 }
 
@@ -230,6 +235,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
 path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl-arm64-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-linux-musl-arm64-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")
